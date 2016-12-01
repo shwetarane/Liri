@@ -45,14 +45,24 @@ switch (operation) {
             access_token_secret: keys.twitterKeys.access_token_secret
         });
 
-        console.log(client.consumer_key); //returns undefined
+        // console.log(keys.twitterKeys.consumer_key,+ "|"+  keys.twitterKeys.consumer_secret, keys.twitterKeys.access_token_key, keys.twitterKeys.access_token_secret); //returns undefined
         // console.log(keys.twitterKeys);
         var input = { screen_name: 'ShwtaR' };
         client.get('statuses/user_timeline', input, function(error, tweets, response) {
-            console.log(error);
-            if (!error) {
-                console.log(tweets);
+            for (var i = 0; i < 20; i++) {
+                var tweet = tweets[i].text;
+                console.log("                                           ");
+                console.log("Tweet " + [i] + ":" + tweet);
+                console.log("----------------------------------------------------------------");
+                // console.log("RESPONSE: "+ response);
+                fs.appendFile("log.txt", tweet + "\n");
             }
+
+            if (error) {
+                // console.log(response);
+                console.log(error);
+            }
+
         });
 
         break;
@@ -95,6 +105,7 @@ function movie() {
     console.log(queryUrl);
     request(queryUrl, function(error, response, body) {
         if (!error && response.statusCode === 200) {
+            console.log("----------------------------------------------------------------");
             var title = JSON.parse(body).Title;
             console.log("Title: " + title);
 
@@ -139,6 +150,7 @@ function spot() {
             console.log('Error occurred: ' + err);
             return;
         }
+        console.log("----------------------------------------------------------------");
         console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
         console.log("Song name: " + data.tracks.items[0].name);
         console.log("Album Name: " + data.tracks.items[0].album.name)

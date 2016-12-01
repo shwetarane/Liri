@@ -37,33 +37,7 @@ switch (operation) {
 
     case "twitter":
         //retrieve 20 tweets
-        var client = new Twitter({
-            consumer_key: keys.twitterKeys.consumer_key,
-            consumer_secret: keys.twitterKeys.consumer_secret,
-            access_token_key: keys.twitterKeys.access_token_key,
-            access_token_secret: keys.twitterKeys.access_token_secret
-        });
-
-        // console.log(keys.twitterKeys.consumer_key,+ "|"+  keys.twitterKeys.consumer_secret, keys.twitterKeys.access_token_key, keys.twitterKeys.access_token_secret); //returns undefined
-        // console.log(keys.twitterKeys);
-        var input = { screen_name: 'ShwtaR' };
-        client.get('statuses/user_timeline', input, function(error, tweets, response) {
-            for (var i = 0; i < 20; i++) {
-                var tweet = tweets[i].text;
-                console.log("                                           ");
-                console.log("Tweet " + [i] + ":" + tweet);
-                console.log("----------------------------------------------------------------");
-                // console.log("RESPONSE: "+ response);
-                fs.appendFile("log.txt", tweet + "\n");
-            }
-
-            if (error) {
-                // console.log(response);
-                console.log(error);
-            }
-
-        });
-
+        twit();
         break;
 
 
@@ -93,8 +67,8 @@ switch (operation) {
         });
         break;
 
-        case "default":
-            console.log("No input");
+    case "default":
+        console.log("No input");
 
 }
 
@@ -144,7 +118,7 @@ function movie() {
 //function spot, fetches data from spotify API
 function spot() {
     if (user_input.length < 2) {
-        user_input = "The Sign";
+        user_input = "Every Teardrop is a waterfall";
     }
     spotify.search({ type: 'track', query: user_input }, function(err, data) {
 
@@ -162,3 +136,36 @@ function spot() {
         fs.appendFile("log.txt", data.tracks.items[0].album.artists[0].name + " | " + data.tracks.items[0].name + " | " + data.tracks.items[0].album.name + " | " + data.tracks.items[0].album.artists[0].external_urls.spotify + "\n");
     });
 }
+
+
+function twit() {
+            var client = new Twitter({
+                consumer_key: keys.twitterKeys.consumer_key,
+                consumer_secret: keys.twitterKeys.consumer_secret,
+                access_token_key: keys.twitterKeys.access_token_key,
+                access_token_secret: keys.twitterKeys.access_token_secret
+            });
+
+            if (user_input.length < 2) {
+                user_input = "BillGates";
+            }
+            // console.log(keys.twitterKeys.consumer_key,+ "|"+  keys.twitterKeys.consumer_secret, keys.twitterKeys.access_token_key, keys.twitterKeys.access_token_secret); //returns undefined
+            // console.log(keys.twitterKeys);
+            var input = { screen_name: user_input };
+            client.get('statuses/user_timeline', input, function(error, tweets, response) {
+                for (var i = 0; i < 20; i++) {
+                    var tweet = tweets[i].text;
+                    console.log("                                           ");
+                    console.log("Tweet " + [i] + ":" + tweet);
+                    console.log("----------------------------------------------------------------");
+                    // console.log("RESPONSE: "+ response);
+                    fs.appendFile("log.txt", tweet + "\n-------------------------------\n");
+                }
+
+                if (error) {
+                    // console.log(response);
+                    console.log(error);
+                }
+
+            });
+        }

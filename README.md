@@ -20,6 +20,19 @@ LIRI is a Language Interpretation and Recognition Interface. A command line node
   -Rotten Tomatoes URL.
 4. LIRI takes the text inside of random.txt and then use it to call one of LIRI's commands.
 
+If no input is provided, it shows the details for predefined input value for movie and spotify-this.
+
+
+Execution:
+
+  npm install twitter
+  npm install spotify
+  npm install request
+
+  node liri.js twitter  or node liri.js twitter user_input
+  node liri.js movie  or node liri.js movie user_input
+  node liri.js spotify-this  or node liri.js spotify-this user_input
+  node liri.js do 
 
  
  

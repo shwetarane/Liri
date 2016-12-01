@@ -11,11 +11,13 @@ var keys = require("./keys.js");
 
 // var keyload = keys.twitterKeys;
 
-
+//operation to be selected by user
 var operation = process.argv[2];
 
+//input string by user
 var user_input_string = process.argv;
 var user_input = "";
+
 
 for (var i = 3; i < user_input_string.length; i++) {
     user_input = user_input + " " + user_input_string[i];
@@ -23,7 +25,7 @@ for (var i = 3; i < user_input_string.length; i++) {
 
 user_input = user_input.trim();
 
-
+//switch case to identify operation by user
 switch (operation) {
     case "movie":
         movie();
@@ -33,6 +35,8 @@ switch (operation) {
         spot();
         break;
 
+
+// ERROR 32 " Could not authenticate you" 
     case "twitter":
         //retrieve 20 tweets
         var client = new Twitter({
@@ -42,8 +46,8 @@ switch (operation) {
             access_token_secret: keys.twitterKeys.access_token_secret
         });
 
+        console.log(client.consumer_key); //returns undefined
         // console.log(keys.twitterKeys);
-        console.log(client.options.consumer_key);
         var input = { screen_name: 'ShwtaR' };
         client.get('statuses/user_timeline', input, function(error, tweets, response) {
             console.log(error);
@@ -56,7 +60,7 @@ switch (operation) {
 
 
     case "do":
-        // First I want to read the file
+        // Read the file
         fs.readFile('./random.txt', "utf8", function(err, data) {
             if (err) {
                 throw err;
@@ -83,7 +87,7 @@ switch (operation) {
 
 }
 
-
+//function movie , feteches the data from omdb API 
 function movie() {
     var queryUrl = "http://www.omdbapi.com/?tomatoes=true&t=" + user_input + "&y=&plot=short&r=json";
     console.log(queryUrl);
@@ -122,7 +126,7 @@ function movie() {
     });
 }
 
-
+//function spot, fetches data from spotify API
 function spot() {
     spotify.search({ type: 'track', query: user_input }, function(err, data) {
 

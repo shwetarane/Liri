@@ -35,7 +35,6 @@ switch (operation) {
         spot();
         break;
 
-        // ERROR 32 " Could not authenticate you" 
     case "twitter":
         //retrieve 20 tweets
         var client = new Twitter({
@@ -93,6 +92,9 @@ switch (operation) {
 
         });
         break;
+
+        case "default":
+            console.log("No input");
 
 }
 

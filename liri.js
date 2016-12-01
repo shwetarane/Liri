@@ -35,8 +35,7 @@ switch (operation) {
         spot();
         break;
 
-
-// ERROR 32 " Could not authenticate you" 
+        // ERROR 32 " Could not authenticate you" 
     case "twitter":
         //retrieve 20 tweets
         var client = new Twitter({
@@ -89,6 +88,9 @@ switch (operation) {
 
 //function movie , feteches the data from omdb API 
 function movie() {
+    if (user_input.length < 2) {
+        user_input = "Mr. Nobody";
+    }
     var queryUrl = "http://www.omdbapi.com/?tomatoes=true&t=" + user_input + "&y=&plot=short&r=json";
     console.log(queryUrl);
     request(queryUrl, function(error, response, body) {
@@ -128,6 +130,9 @@ function movie() {
 
 //function spot, fetches data from spotify API
 function spot() {
+    if (user_input.length < 2) {
+        user_input = "The Sign";
+    }
     spotify.search({ type: 'track', query: user_input }, function(err, data) {
 
         if (err) {

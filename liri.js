@@ -38,25 +38,25 @@ switch (operation) {
     case "do":
         // First I want to read the file
         fs.readFile('./random.txt', "utf8", function(err, data) {
-            // if (err) {
-            //     throw err;
-            // }
-            // var content = data.split(",");
+            if (err) {
+                throw err;
+            }
+            var content = data.split(",");
 
-            // // operation = content[0];
-            // // user_input = content[1];
+            operation = content[0];
+             user_input = content[1];
 
-            // console.log(operation);
-            // console.log(user_input);
+            console.log(operation);
+            console.log(user_input);
 
-            // if (operation === "movie") {
-            //     //display movie details
-            //     user_input = content[1];
-            //     movie();
-            // } else if (operation === "spotify") {
-            //     //display track details
-            //     spot();
-            // }
+            if (operation === "movie") {
+                //display movie details
+               
+                movie();
+            } else if (operation === "spotify-this") {
+                //display track details
+                spot();
+            }
 
         });
         break;
